@@ -1,4 +1,5 @@
 import React from 'react'
+import { StaticRouterContext } from "react-router";
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
 import express from 'express'
@@ -27,8 +28,8 @@ const jsScriptTagsFromAssets = (assets, entrypoint, ...extra) => {
     : ''
 }
 
-export const renderApp = (req, res) => {
-  const context = {}
+export const renderApp = (req: express.Request, res: express.Response) => {
+  const context: StaticRouterContext = {}
   const markup = renderToString(
     <StaticRouter context={context} location={req.url}>
       <App />
@@ -55,7 +56,7 @@ const server = express()
 server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
-  .get('/*', (req, res) => {
+  .get('/*', (req: express.Request, res: express.Response) => {
     const { context, html } = renderApp(req, res)
     if (context.url) {
       res.redirect(context.url)
