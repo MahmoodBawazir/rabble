@@ -1,8 +1,9 @@
 import React from 'react'
-import { StaticRouterContext } from "react-router";
+import { StaticRouterContext } from 'react-router'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
 import express from 'express'
+import { ServerStyleSheet } from 'styled-components'
 
 import App from '../app'
 
@@ -29,12 +30,22 @@ const jsScriptTagsFromAssets = (assets, entrypoint, ...extra) => {
 }
 
 export const renderApp = (req: express.Request, res: express.Response) => {
+  // Create the server side style sheet
+  const sheet = new ServerStyleSheet()
+
   const context: StaticRouterContext = {}
+  // When the app is rendered collect the styles that are used inside it
   const markup = renderToString(
-    <StaticRouter context={context} location={req.url}>
-      <App />
-    </StaticRouter>
+    sheet.collectStyles(
+      <StaticRouter context={context} location={req.url}>
+        <App />
+      </StaticRouter>
+    )
   )
+
+  // Generate all the style tags so they can be rendered into the page
+  const styleTags = sheet.getStyleTags()
+
   const html = `<!doctype html>
   <html lang="">
   <head>
@@ -43,6 +54,8 @@ export const renderApp = (req: express.Request, res: express.Response) => {
       <title>Welcome to Razzle</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       ${cssLinksFromAssets(assets, 'client')}
+      <!-- Render the style tags gathered from the components into the DOM -->
+      ${styleTags}
   </head>
   <body>
       <div id="root">${markup}</div>
