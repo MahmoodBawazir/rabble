@@ -51,7 +51,7 @@ export const renderApp = (req: express.Request, res: express.Response) => {
   <head>
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta charset="utf-8" />
-      <title>Welcome to Razzle</title>
+      <title>Rabble</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       ${cssLinksFromAssets(assets, 'client')}
       <!-- Render the style tags gathered from the components into the DOM -->
