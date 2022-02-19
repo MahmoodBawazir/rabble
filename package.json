@@ -3,11 +3,11 @@
   "version": "4.2.13",
   "license": "MIT",
   "scripts": {
-    "start:tsc": "tsc -b -w --preserveWatchOutput",
-    "start": "concurrently \"yarn start:tsc\" \"razzle start\"",
+    "dev:tsc": "tsc -b -w --preserveWatchOutput",
+    "dev": "concurrently \"yarn dev:tsc\" \"razzle start\"",
     "build": "tsc -b && razzle build",
     "test": "razzle test --env=jsdom",
-    "start:prod": "NODE_ENV=production node build/server.js"
+    "start": "NODE_ENV=production node build/server.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -24,6 +24,7 @@
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.2",
     "@types/webpack-env": "^1.16.3",
+    "babel-plugin-styled-components": "^2.0.2",
     "babel-preset-razzle": "4.2.13",
     "concurrently": "^7.0.0",
     "cross-env": "^7.0.3",

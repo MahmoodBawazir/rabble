@@ -9,7 +9,10 @@ import App from '../app'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
-const cssLinksFromAssets = (assets, entrypoint) => {
+const cssLinksFromAssets = (
+  assets: { [x: string]: { css: any[] } },
+  entrypoint: string
+) => {
   return assets[entrypoint]
     ? assets[entrypoint].css
       ? assets[entrypoint].css
@@ -19,7 +22,11 @@ const cssLinksFromAssets = (assets, entrypoint) => {
     : ''
 }
 
-const jsScriptTagsFromAssets = (assets, entrypoint, ...extra) => {
+const jsScriptTagsFromAssets = (
+  assets: { [x: string]: { js: any[] } },
+  entrypoint: string,
+  ...extra: string[]
+) => {
   return assets[entrypoint]
     ? assets[entrypoint].js
       ? assets[entrypoint].js
