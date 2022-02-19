@@ -8,6 +8,7 @@ const SignupForm: React.FC<{}> = () => {
   return (
     <FormWrapper>
       <form>
+        <Input type="text" placeholder="Full Name" />
         <Input type="email" placeholder="Email address" />
         <Input type="password" placeholder="Your password" />
         <PrimaryButton size={'full'}>Sign up</PrimaryButton>
