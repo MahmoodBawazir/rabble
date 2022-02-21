@@ -2,8 +2,12 @@ import React from 'react'
 import { StaticRouterContext } from 'react-router'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
-import express from 'express'
 import { ServerStyleSheet } from 'styled-components'
+import express from 'express'
+import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import helmet from 'helmet'
+import compression from 'compression'
 
 import App from '../app'
 
@@ -73,16 +77,38 @@ export const renderApp = (req: express.Request, res: express.Response) => {
 }
 
 const server = express()
-server
-  .disable('x-powered-by')
-  .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
-  .get('/*', (req: express.Request, res: express.Response) => {
-    const { context, html } = renderApp(req, res)
-    if (context.url) {
-      res.redirect(context.url)
-    } else {
-      res.status(200).send(html)
-    }
+
+// trust the proxy
+server.set('trust proxy', 1)
+// parse incoming requests with JSON
+server.use(express.json())
+// parse Cookie header, populate req.cookies
+server.use(cookieParser())
+// enable cors across all origins
+server.use(cors('*'))
+// sets http headers for security
+server.use(
+  helmet({
+    // disable csp for now until i can setup nonce
+    contentSecurityPolicy: false,
   })
+)
+// compress response bodies
+server.use(compression())
+
+// security measure for production
+server.disable('x-powered-by')
+
+// serve static files from the public directory
+server.use(express.static(process.env.RAZZLE_PUBLIC_DIR))
+
+server.get('/*', (req: express.Request, res: express.Response) => {
+  const { context, html } = renderApp(req, res)
+  if (context.url) {
+    res.redirect(context.url)
+  } else {
+    res.status(200).send(html)
+  }
+})
 
 export default server
