@@ -39,7 +39,7 @@ type To = {
   state?: object
 }
 
-type Size = 'small' | 'medium' | 'large' | 'full'
+export type Size = 'small' | 'medium' | 'large' | 'full'
 
 interface ButtonProps {
   target?: string

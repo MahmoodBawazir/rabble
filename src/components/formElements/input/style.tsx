@@ -26,12 +26,6 @@ export const StyledInput = styled.input`
   font-size: 18px;
   padding-left: 15px;
 
-  ${(props) =>
-    props.icon &&
-    css`
-      padding-left: 50px;
-    `}
-
   ::placeholder,
   ::-webkit-input-placeholder {
     ${placeholderStyles};

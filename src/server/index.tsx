@@ -85,7 +85,7 @@ server.use(express.json())
 // parse Cookie header, populate req.cookies
 server.use(cookieParser())
 // enable cors across all origins
-server.use(cors('*'))
+server.use(cors())
 // sets http headers for security
 server.use(
   helmet({

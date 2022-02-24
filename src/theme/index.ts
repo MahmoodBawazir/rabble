@@ -1,4 +1,6 @@
-export default {
+import { DefaultTheme } from 'styled-components'
+
+const theme: DefaultTheme = {
   bodyFont: 'Roboto, sans-serif',
   colors: {
     bodyColor: '#1A1A1A',
@@ -19,3 +21,5 @@ export default {
     gradient: 'linear-gradient(177.94deg, #10002B 61.19%, #43036F 98.38%)',
   },
 }
+
+export default theme

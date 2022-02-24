@@ -47,7 +47,7 @@ const Input: React.FC<InputProps> = ({
           placeholder={placeholder}
           defaultValue={defaultValue}
           onChange={onChange}
-          autocomplete={autocomplete}
+          autoComplete={autocomplete}
           required={required}
         />
       </StyledLabel>

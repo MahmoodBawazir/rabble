@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import theme from 'theme'
+import { Size } from './index'
 
 export const StyledAnchorLink = styled.a`
   display: flex;
@@ -15,7 +16,11 @@ export const StyledRouterLink = styled(Link)`
   flex: none;
 `
 
-export const StyledButton = styled.button`
+interface ButtonProps {
+  size: Size
+}
+
+export const StyledButton = styled.button<ButtonProps>`
   background: none;
   border: none;
   outline: none;
