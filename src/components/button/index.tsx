@@ -7,7 +7,28 @@ import {
   StyledPrimaryButton,
 } from './style'
 
-const handleAnchorWrapping = (Component: React.FC, props) => {
+type To = {
+  pathname?: string
+  search?: string
+  state?: object
+}
+
+export type Size = 'small' | 'medium' | 'large' | 'full'
+
+interface ButtonProps {
+  target?: string
+  href?: string
+  to?: string | To
+  children: React.ReactNode
+  disabled?: boolean
+  isLoading?: boolean
+  size?: Size
+}
+
+const handleAnchorWrapping = (
+  Component: React.FC<any>,
+  props: Omit<ButtonProps, 'size'>
+) => {
   const { href, to, target, children, disabled, isLoading, ...rest } = props
 
   const button = (
@@ -31,24 +52,6 @@ const handleAnchorWrapping = (Component: React.FC, props) => {
   if (to) return <StyledRouterLink to={to}>{button}</StyledRouterLink>
 
   return button
-}
-
-type To = {
-  pathname?: string
-  search?: string
-  state?: object
-}
-
-export type Size = 'small' | 'medium' | 'large' | 'full'
-
-interface ButtonProps {
-  target?: string
-  href?: string
-  to?: string | To
-  children: React.ReactNode
-  disabled?: boolean
-  isLoading?: boolean
-  size?: Size
 }
 
 export const Button: React.FC<ButtonProps> = (props) =>

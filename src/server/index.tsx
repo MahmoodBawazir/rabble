@@ -11,7 +11,8 @@ import compression from 'compression'
 
 import App from '../app'
 
-const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
+// using non-null assertion operator: !
+const assets = require(process.env.RAZZLE_ASSETS_MANIFEST!)
 
 const cssLinksFromAssets = (
   assets: { [x: string]: { css: any[] } },
@@ -100,7 +101,7 @@ server.use(compression())
 server.disable('x-powered-by')
 
 // serve static files from the public directory
-server.use(express.static(process.env.RAZZLE_PUBLIC_DIR))
+server.use(express.static(process.env.RAZZLE_PUBLIC_DIR!))
 
 server.get('/*', (req: express.Request, res: express.Response) => {
   const { context, html } = renderApp(req, res)
