@@ -22,6 +22,6 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["typings", "shared", "src", "api"],
   "exclude": ["node_modules"]
 }
