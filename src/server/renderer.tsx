@@ -31,6 +31,7 @@ const renderer = async (req: express.Request, res: express.Response) => {
   if (!nonce) throw new Error('Security nonce not set.')
 
   // Create an Apollo Client with a local network interface
+  // use schema link for SSR
   const client = new ApolloClient({
     ssrMode: true,
     cache: new InMemoryCache(),

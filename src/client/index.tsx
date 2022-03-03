@@ -10,11 +10,16 @@ import { history } from './history'
 // Create an Apollo Client with a local network interface
 const cache = new InMemoryCache()
 
+// use HttpLink for client
+// apollo uses HttpLink by default when `uri` is provided
 const client = new ApolloClient({
   uri: 'http://localhost:4000/api',
   cache: window.__DATA__ ? cache.restore(window.__DATA__) : cache,
-  // ssrForceFetchDelay: 100,
-  // queryDeduplication: true,
+  // skip force-fetching (queries using network-only or cache-and-network) during initialization.
+  // this way, even those queries initially run using only the cache
+  ssrForceFetchDelay: 100,
+  // prevent sending duplicate queries to the serverr
+  queryDeduplication: true,
 })
 
 hydrate(
