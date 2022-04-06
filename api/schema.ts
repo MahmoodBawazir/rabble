@@ -1,8 +1,12 @@
 import { gql } from '@apollo/client'
 import { makeExecutableSchema } from '@graphql-tools/schema'
-import { merge } from 'lodash'
 
-import * as customScalars from './types/custom-scalars'
+// Types
+import * as customScalars from './entities/scalars'
+import User from './entities/User'
+
+// Resolvers
+import resolvers from './resolvers'
 
 const Root = gql`
   # root GraphQL data
@@ -21,10 +25,8 @@ const Root = gql`
   }
 `
 
-const resolvers = merge({}, customScalars.resolvers)
-
 const schema = makeExecutableSchema({
-  typeDefs: [customScalars.typeDefs, Root],
+  typeDefs: [customScalars.typeDefs, Root, User],
   resolvers,
 })
 

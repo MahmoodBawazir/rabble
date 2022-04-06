@@ -21,6 +21,6 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true
   },
-  "include": ["api", "shared"],
+  "include": ["api", "shared", "typings"],
   "exclude": ["node_modules", "src"]
 }

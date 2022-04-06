@@ -6,6 +6,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 
 import App from '../app'
 import { history } from './history'
+import { API_URL } from '../../shared/constants'
 
 // Create an Apollo Client with a local network interface
 const cache = new InMemoryCache()
@@ -13,7 +14,7 @@ const cache = new InMemoryCache()
 // use HttpLink for client
 // apollo uses HttpLink by default when `uri` is provided
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/api',
+  uri: API_URL,
   cache: window.__DATA__ ? cache.restore(window.__DATA__) : cache,
   // skip force-fetching (queries using network-only or cache-and-network) during initialization.
   // this way, even those queries initially run using only the cache

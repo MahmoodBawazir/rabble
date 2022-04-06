@@ -23,6 +23,9 @@ const renderer = async (req: express.Request, res: express.Response) => {
   // allows you to perform GraphQL operations on a provided schema
   const schemaLink = new SchemaLink({
     schema,
+    context: {
+      user: req.user || null,
+    },
   })
 
   const nonce =
@@ -56,6 +59,8 @@ const renderer = async (req: express.Request, res: express.Response) => {
   getDataFromTree(frontend)
     .then(() => {
       log('got data from tree')
+
+      console.log('apollo user', req.user)
 
       res.status(200)
 
