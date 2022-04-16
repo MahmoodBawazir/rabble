@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import theme from 'theme'
 import { Size } from './index'
@@ -18,6 +18,7 @@ export const StyledRouterLink = styled(Link)`
 
 interface ButtonProps {
   size: Size
+  disabled: boolean
 }
 
 export const StyledButton = styled.button<ButtonProps>`
@@ -41,6 +42,12 @@ export const StyledButton = styled.button<ButtonProps>`
     size == 'large' ? '210px' : size == 'full' ? '100%' : '150px'};
   height: ${({ size }) => (size == 'large' ? '50px' : '40px')};
   cursor: pointer;
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      opacity: 0.5;
+      cursor: default;
+    `}
 `
 
 export const StyledPrimaryButton = styled(StyledButton)`

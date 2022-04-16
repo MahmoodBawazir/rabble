@@ -50,6 +50,7 @@ const LoginForm: React.FC<{}> = () => {
 
   return (
     <FormWrapper>
+      <div>Login</div>
       <form method="post" onSubmit={create}>
         <Input
           type="email"
@@ -63,7 +64,7 @@ const LoginForm: React.FC<{}> = () => {
           value={password}
           onChange={onPasswordChange}
         />
-        <PrimaryButton size={'full'} isLoading={loading}>
+        <PrimaryButton type="submit" size={'full'} isLoading={loading}>
           Login
         </PrimaryButton>
       </form>

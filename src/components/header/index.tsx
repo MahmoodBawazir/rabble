@@ -1,11 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { Container } from 'components/globals'
 import Logo from 'components/logo'
-import Nav from 'components/nav'
 import { PrimaryButton } from 'components/button'
 import { StyledHeader, Inner, SideButtons, LoginAnchor } from './style'
-import useCurrentUser from '../../../shared/graphql/queries/user/getCurrentUser'
+import useCurrentUser from '../../../shared/graphql/queries/user/useCurrentUser'
 import { SERVER_URL } from '../../../shared/constants'
 
 const Header: React.FC<{}> = () => {
@@ -16,12 +16,11 @@ const Header: React.FC<{}> = () => {
       <Container>
         <Inner>
           <Logo />
-          <Nav />
 
           <SideButtons>
-            {data?.currentUser ? (
+            {data?.user ? (
               <>
-                <div>{data.currentUser.displayName}</div>
+                <Link to="/account">Hi, {data.user.displayName}</Link>
                 <PrimaryButton
                   href={`${SERVER_URL}/auth/logout`}
                   target="_self"

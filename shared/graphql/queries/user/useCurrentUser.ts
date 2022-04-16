@@ -4,20 +4,20 @@ import userInfoFragment from '../../fragments/user/userInfo'
 import { UserInfoType } from '../../../models/user'
 
 interface GetCurrentUserResponse {
-  currentUser: UserInfoType
+  user: UserInfoType
 }
 
 export const getCurrentUserQuery = gql`
   query getCurrentUser {
-    currentUser {
+    user: currentUser {
       ...userInfo
     }
   }
   ${userInfoFragment}
 `
 
-const useCurrentUser = () => {
-  return useQuery<GetCurrentUserResponse>(getCurrentUserQuery)
+export default function useCurrentUser() {
+  return useQuery<GetCurrentUserResponse>(getCurrentUserQuery, {
+    fetchPolicy: 'cache-first',
+  })
 }
-
-export default useCurrentUser

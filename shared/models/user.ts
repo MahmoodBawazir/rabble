@@ -4,8 +4,10 @@ export enum Role {
   MEMBER = 'MEMBER',
 }
 
-export type UserSettings = {
-  newsletter: Boolean
+export type UserSettingsType = {
+  notifications: {
+    newsletter: boolean
+  }
 }
 
 export type ProviderUserInfo = {
@@ -19,10 +21,8 @@ export type ProviderUserInfo = {
 export interface User {
   id: string
   displayName: string
-  description: string
-  headline: string
   email: string
-  emailVerified: Boolean
+  emailVerified: boolean
   photoUrl: string
   providerUserInfo: ProviderUserInfo[]
   createdAt: Date
@@ -32,20 +32,29 @@ export interface User {
   password: string
   passwordUpdatedAt: Date
   role: Role
-  settings: UserSettings
+  settings: UserSettingsType
 }
 
 export type UserInfoType = Pick<
   User,
-  | 'id'
-  | 'displayName'
-  | 'description'
-  | 'headline'
-  | 'email'
-  | 'photoUrl'
-  | 'createdAt'
+  'id' | 'displayName' | 'email' | 'photoUrl' | 'createdAt'
 >
 
 export type LoginPayload = Pick<User, 'email' | 'password'>
 
 export type SignUpPayload = Pick<User, 'email' | 'password'>
+
+export type GetCurrentUserSettingsType = UserInfoType & {
+  settings: UserSettingsType
+}
+
+export type EditUserType = {
+  displayName?: string
+  email?: string
+}
+
+export type ChangePasswordType = {
+  currentPassword: string
+  newPassword: string
+  newPassword2: string
+}

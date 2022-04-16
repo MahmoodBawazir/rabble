@@ -28,7 +28,7 @@ const SignupForm: React.FC<{}> = () => {
     setLoading(true)
 
     try {
-      const createdUser = await axios.post(
+      await axios.post(
         `${SERVER_URL}/auth/email/signup`,
         {
           email,
@@ -39,8 +39,7 @@ const SignupForm: React.FC<{}> = () => {
         }
       )
 
-      setLoading(false)
-      console.log({ createdUser })
+      window.location.pathname = '/'
     } catch (err) {
       console.error(err)
     } finally {
@@ -50,7 +49,7 @@ const SignupForm: React.FC<{}> = () => {
 
   return (
     <FormWrapper>
-      <form method="post" onSubmit={create}>
+      <form noValidate method="post" onSubmit={create}>
         <Input
           type="email"
           placeholder="Email address"
@@ -63,7 +62,7 @@ const SignupForm: React.FC<{}> = () => {
           value={password}
           onChange={onPasswordChange}
         />
-        <PrimaryButton size={'full'} isLoading={loading}>
+        <PrimaryButton type="submit" size={'full'} isLoading={loading}>
           Sign up
         </PrimaryButton>
       </form>

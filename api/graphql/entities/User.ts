@@ -23,15 +23,17 @@ const User = gql`
     photoUrl: String!
   }
 
-  type UserSettings {
+  type UserNotificationsSettings {
     newsletter: Boolean
+  }
+
+  type UserSettings {
+    notifications: UserNotificationsSettings
   }
 
   type User {
     id: ID!
     displayName: String
-    description: String
-    headline: String
     email: Email!
     emailVerified: Boolean
     photoUrl: String
@@ -46,23 +48,25 @@ const User = gql`
     settings: UserSettings
   }
 
-  input CreateUserInput {
-    email: Email!
+  input EditUserInput {
     displayName: String
-    password: String!
-    photoUrl: String
-    createdAt: Date
-    lastLoginAt: Date
-    providerUserInfo: [UserProviderInfoInput!]
-    role: Role
+    email: Email
+  }
+
+  input ChangePasswordInput {
+    currentPassword: String!
+    newPassword: String!
+    newPassword2: String!
   }
 
   extend type Query {
     currentUser: User
+    getCurrentUserSettings: User
   }
 
   extend type Mutation {
-    createUserWithEmail(input: CreateUserInput!): User
+    editUser(input: EditUserInput!): User
+    changePassword(input: ChangePasswordInput): User
   }
 `
 

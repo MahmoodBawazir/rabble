@@ -2,12 +2,12 @@ import session from 'express-session'
 import Redis from 'ioredis'
 import connectRedis from 'connect-redis'
 
-import { SESSION_SECRET } from '../constants'
+import { REDIS_URL, SESSION_SECRET } from '../constants'
 
 const MAX_AGE = 24 * 60 * 60 * 1000 * 30 // 1 month
 
 const RedisStore = connectRedis(session)
-const redis = new Redis(process.env.REDIS_URL)
+const redis = new Redis(REDIS_URL)
 
 export default session({
   store: new RedisStore({

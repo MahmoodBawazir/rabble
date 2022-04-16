@@ -1,4 +1,4 @@
-import getCurrentUser from './user/getCurrentUser'
+import getCurrentUser from './getCurrentUser'
 
 const userQueries = {
   Query: {

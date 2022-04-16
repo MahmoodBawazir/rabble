@@ -1,6 +1,6 @@
 import { GraphQLError, GraphQLScalarType, Kind } from 'graphql'
 
-import { EMAIL_ADDRESS_REGEX } from '../../../shared/constants'
+import { EMAIL_ADDRESS_REGEX } from '../../../../shared/constants'
 
 const validate = (value: any) => {
   if (typeof value !== 'string') {

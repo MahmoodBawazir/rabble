@@ -1,3 +1,1 @@
-# rabble
-
-A community app
+# rabble academy

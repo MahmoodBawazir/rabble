@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components'
 import HomePage from 'views/home'
 import SignupPage from 'views/signup'
 import LoginPage from 'views/login'
-import CoursesPage from 'views/courses'
+import AccountPage from 'views/account'
 import theme from 'theme'
 import GlobalStyles from 'theme/reset.css'
 
@@ -17,7 +17,7 @@ const App = () => (
         <Route exact={true} path="/" component={HomePage} />
         <Route path="/signup" component={SignupPage} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/courses" component={CoursesPage} />
+        <Route path="/account" component={AccountPage} />
       </Switch>
     </>
   </ThemeProvider>

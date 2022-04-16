@@ -1,6 +1,7 @@
-import { getUserById } from '../../../services/user'
+import { getUserById } from '../../../../services/user'
 
-export default async (_: any, __: any, { user }: { user: any }) => {
+export default async (_: any, __: any, ctx: any) => {
+  const { user } = ctx
   if (!user || !user.id) return null
 
   const dbUser = await getUserById(user.id)

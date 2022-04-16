@@ -15,12 +15,17 @@ const cache = new InMemoryCache()
 // apollo uses HttpLink by default when `uri` is provided
 const client = new ApolloClient({
   uri: API_URL,
-  cache: window.__DATA__ ? cache.restore(window.__DATA__) : cache,
+  cache: window.__APOLLO_STATE__
+    ? cache.restore(window.__APOLLO_STATE__)
+    : cache,
   // skip force-fetching (queries using network-only or cache-and-network) during initialization.
   // this way, even those queries initially run using only the cache
   ssrForceFetchDelay: 100,
   // prevent sending duplicate queries to the serverr
   queryDeduplication: true,
+  connectToDevTools: true,
+  // this is ABSOLUTELY NEEDED for cookies to work
+  credentials: 'include',
 })
 
 hydrate(

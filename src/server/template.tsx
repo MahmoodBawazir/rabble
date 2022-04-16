@@ -45,7 +45,7 @@ export const getFooter = ({
   nonce: string
 }) => {
   return html`</div>
-      <script nonce="${nonce}">window.__DATA__=${serialize(
+      <script nonce="${nonce}">window.__APOLLO_STATE__=${serialize(
     apolloState
   )}</script>
       ${jsScriptTagsFromAssets(assets, 'client', nonce, ' defer crossorigin')}

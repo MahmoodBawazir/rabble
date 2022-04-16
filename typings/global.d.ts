@@ -3,6 +3,6 @@ export {}
 
 declare global {
   interface Window {
-    __DATA__?: any
+    __APOLLO_STATE__?: any
   }
 }

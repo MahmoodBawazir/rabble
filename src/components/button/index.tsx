@@ -15,6 +15,7 @@ type To = {
 
 export type Size = 'small' | 'medium' | 'large' | 'full'
 
+export type Type = 'button' | 'submit'
 interface ButtonProps {
   target?: string
   href?: string
@@ -23,16 +24,22 @@ interface ButtonProps {
   disabled?: boolean
   isLoading?: boolean
   size?: Size
+  type?: Type
 }
 
 const handleAnchorWrapping = (
   Component: React.FC<any>,
   props: Omit<ButtonProps, 'size'>
 ) => {
-  const { href, to, target, children, disabled, isLoading, ...rest } = props
+  const { href, to, target, children, disabled, isLoading, type, ...rest } =
+    props
 
   const button = (
-    <Component disabled={disabled || isLoading} {...rest}>
+    <Component
+      type={type || 'button'}
+      disabled={disabled || isLoading}
+      {...rest}
+    >
       {children}
     </Component>
   )

@@ -1,6 +1,11 @@
 import React from 'react'
 
-import { StyledField, StyledLabel, StyledError } from '../style'
+import {
+  StyledField,
+  StyledLabel,
+  StyledLabelText,
+  StyledError,
+} from '../style'
 import { StyledInput } from './style'
 
 interface InputProps {
@@ -17,7 +22,7 @@ interface InputProps {
   disabled?: boolean
   required?: boolean
   error?: string
-  autocomplete?: string
+  autoComplete?: string
 }
 
 const Input: React.FC<InputProps> = ({
@@ -29,7 +34,7 @@ const Input: React.FC<InputProps> = ({
   defaultValue,
   placeholder,
   onChange,
-  autocomplete,
+  autoComplete,
   required,
   disabled,
   error,
@@ -38,6 +43,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <StyledField {...rest}>
       <StyledLabel>
+        {label && <StyledLabelText>{label}</StyledLabelText>}
         <StyledInput
           id={id}
           name={name}
@@ -47,7 +53,7 @@ const Input: React.FC<InputProps> = ({
           placeholder={placeholder}
           defaultValue={defaultValue}
           onChange={onChange}
-          autoComplete={autocomplete}
+          autoComplete={autoComplete}
           required={required}
         />
       </StyledLabel>
