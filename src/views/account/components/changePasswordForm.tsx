@@ -37,16 +37,20 @@ const ChangePasswordForm: React.FC<Props> = ({ user }) => {
 
   const handleSubmit = async (
     values: FormValues,
-    { setSubmitting, setErrors }: any
+    { setSubmitting, setErrors, setStatus }: any
   ) => {
     try {
       setSubmitting(true)
 
-      await changePassword({
+      const didChangePassword = await changePassword({
         variables: {
           input: values,
         },
       })
+
+      if (didChangePassword) {
+        setStatus({ success: 'Password successfully changed!' })
+      }
     } catch (err: any) {
       setErrors({ currentPassword: err.message })
     } finally {
@@ -62,8 +66,13 @@ const ChangePasswordForm: React.FC<Props> = ({ user }) => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ values, isSubmitting }) => (
+        {({ values, isSubmitting, status }) => (
           <Form noValidate method="post">
+            {status && status.success ? (
+              <div>Password successfully changed</div>
+            ) : (
+              ''
+            )}
             <Field name="currentPassword">
               {({
                 field,

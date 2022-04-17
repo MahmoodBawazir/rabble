@@ -18,4 +18,6 @@ export default async (_: any, args: any, ctx: any) => {
     { input: { newPassword: newPasswordHashed } },
     user.id
   )
+    .then(() => true)
+    .catch((err: any) => new Error(err.message))
 }

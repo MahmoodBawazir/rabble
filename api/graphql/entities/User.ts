@@ -66,7 +66,7 @@ const User = gql`
 
   extend type Mutation {
     editUser(input: EditUserInput!): User
-    changePassword(input: ChangePasswordInput): User
+    changePassword(input: ChangePasswordInput!): Boolean!
   }
 `
 

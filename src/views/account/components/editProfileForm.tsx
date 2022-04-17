@@ -7,6 +7,7 @@ import { Input } from 'components/formElements'
 import { UserInfoType } from '../../../../shared/models/user'
 import useEditUserMutation from '../../../../shared/graphql/mutations/user/useEditUserMutation'
 import { Avatar } from '../style'
+import { getCurrentUserQuery } from '../../../../shared/graphql/queries/user/useCurrentUser'
 
 interface Props {
   user: UserInfoType
@@ -43,6 +44,9 @@ const EditProfileForm: React.FC<Props> = ({ user }) => {
         variables: {
           input: values,
         },
+        // TODO: temporary solution cause it makes extra network request
+        // need to use a better method to update user cache after edit
+        refetchQueries: ['getCurrentUser'],
       })
     } catch (err: any) {
       setErrors({ email: err.message })

@@ -1,9 +1,11 @@
 import { gql, useMutation } from '@apollo/client'
 
-import { ChangePasswordType, UserInfoType } from '../../../models/user'
-import userInfoFragment from '../../fragments/user/userInfo'
+import { ChangePasswordType } from '../../../models/user'
 
-interface ChangePasswordResponse extends UserInfoType {}
+interface ChangePasswordResponse {
+  __typename?: 'Mutation'
+  changePassword: boolean
+}
 
 interface ChangePasswordVariables {
   input: ChangePasswordType
@@ -11,11 +13,8 @@ interface ChangePasswordVariables {
 
 export const changePasswordMutation = gql`
   mutation changePassword($input: ChangePasswordInput!) {
-    changePassword(input: $input) {
-      ...userInfo
-    }
+    changePassword(input: $input)
   }
-  ${userInfoFragment}
 `
 
 export default function useChangePasswordMutation() {
