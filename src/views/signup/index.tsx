@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import Layout from 'components/layout'
-import SignupForm from 'components/forms/signupForm'
+import AuthForm from 'components/forms/authForm'
 import { CenterDiv, CardTitle, Card, CardSubheading, CardNote } from '../style'
 
 const SignupPage: React.FC<{}> = ({}) => {
@@ -15,7 +15,7 @@ const SignupPage: React.FC<{}> = ({}) => {
             <CardSubheading>
               Sign up with your email and password.
             </CardSubheading>
-            <SignupForm />
+            <AuthForm type="signup" />
           </Card>
           <CardNote>
             Already have an account? <Link to="/login">Login</Link>

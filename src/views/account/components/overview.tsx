@@ -17,7 +17,7 @@ const Overview: React.FC<{}> = () => {
       <Layout>
         <div style={{ maxWidth: '500px', margin: '0 auto', padding: '60px 0' }}>
           <EditProfileForm user={data.user} />
-          <ChangePasswordForm user={data.user} />
+          <ChangePasswordForm />
         </div>
       </Layout>
     )

@@ -4,12 +4,7 @@ import { string, object, ref } from 'yup'
 
 import { PrimaryButton } from 'components/button'
 import { Input } from 'components/formElements'
-import { UserInfoType } from '../../../../shared/models/user'
 import useChangePasswordMutation from '../../../../shared/graphql/mutations/user/useChangePasswordMutation'
-
-interface Props {
-  user: UserInfoType
-}
 
 interface FormValues {
   currentPassword: string
@@ -26,7 +21,7 @@ const validationSchema = object().shape({
   }),
 })
 
-const ChangePasswordForm: React.FC<Props> = ({ user }) => {
+const ChangePasswordForm: React.FC<{}> = () => {
   const [changePassword] = useChangePasswordMutation()
 
   const initialValues: FormValues = {

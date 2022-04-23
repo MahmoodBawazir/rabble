@@ -7,7 +7,6 @@ import { Input } from 'components/formElements'
 import { UserInfoType } from '../../../../shared/models/user'
 import useEditUserMutation from '../../../../shared/graphql/mutations/user/useEditUserMutation'
 import { Avatar } from '../style'
-import { getCurrentUserQuery } from '../../../../shared/graphql/queries/user/useCurrentUser'
 
 interface Props {
   user: UserInfoType

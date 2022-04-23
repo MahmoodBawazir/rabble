@@ -21,7 +21,7 @@ const renderer = async (req: express.Request, res: express.Response) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
 
   // allows you to perform GraphQL operations on a provided schema
-  console.log('schemaLink', req.user)
+  // console.log('schemaLink', req.user)
   const schemaLink = new SchemaLink({
     schema,
     context: {
