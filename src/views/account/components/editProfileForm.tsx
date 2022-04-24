@@ -6,7 +6,7 @@ import { PrimaryButton } from 'components/button'
 import { Input } from 'components/formElements'
 import { UserInfoType } from '../../../../shared/models/user'
 import useEditUserMutation from '../../../../shared/graphql/mutations/user/useEditUserMutation'
-import { Avatar } from '../style'
+import { AvatarImage } from '../style'
 
 interface Props {
   user: UserInfoType
@@ -23,6 +23,15 @@ const validationSchema = object({
     .email('Must contain a valid email address')
     .required('Enter an email address'),
 })
+
+const Avatar = ({ photoUrl }: any) => {
+  return (
+    <div>
+      <AvatarImage src={photoUrl || '/images/default_profile_photo.png'} />
+      <input type="file" name="photoUrl" />
+    </div>
+  )
+}
 
 const EditProfileForm: React.FC<Props> = ({ user }) => {
   const [editUser] = useEditUserMutation()
@@ -64,7 +73,8 @@ const EditProfileForm: React.FC<Props> = ({ user }) => {
       >
         {({ isSubmitting }) => (
           <Form noValidate method="post">
-            <Avatar />
+            <Avatar photoUrl={user.photoUrl} />
+
             <Field name="displayName">
               {({
                 field,
