@@ -1,7 +1,8 @@
 import { EMAIL_ADDRESS_REGEX } from '../../../../../shared/constants'
 import { editUser, getUserByEmail } from '../../../../services/user'
+import { ensureAuthenticated } from '../../../../utils/helpers'
 
-export default async (_: any, args: any, ctx: any) => {
+export default ensureAuthenticated(async (_: any, args: any, ctx: any) => {
   const { user } = ctx
   const { input } = args
 
@@ -21,4 +22,4 @@ export default async (_: any, args: any, ctx: any) => {
   }
 
   return await editUser(args, user.id)
-}
+})

@@ -10,7 +10,8 @@ const server = new ApolloServer({
   context: ({ req }) => {
     const user = req.user ? req.user : null
     // console.log('user context', user)
-    if (!user) throw new AuthenticationError('you must be logged in')
+    if (!user)
+      throw new AuthenticationError('Unauthorized. You must be logged in.')
 
     return { user }
   },
