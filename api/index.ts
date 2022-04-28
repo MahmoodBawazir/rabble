@@ -3,10 +3,10 @@ import cookieParser from 'cookie-parser'
 import compression from 'compression'
 import { createServer } from 'http'
 import passport from 'passport'
+import { graphqlUploadExpress } from 'graphql-upload'
 
 import authRoutes from './routes/auth'
 import initializePassport from './passport'
-
 import apolloServer from './apollo-server'
 import session from '../shared/middlewares/session'
 import addSecurityMiddleware from '../shared/middlewares/security'
@@ -31,7 +31,7 @@ const startApolloServer = async () => {
   app.use(compression())
   app.use(cors)
   app.options('*', cors)
-  app.use(cookieParser('anything'))
+  app.use(cookieParser())
 
   app.use(session)
 
@@ -43,6 +43,9 @@ const startApolloServer = async () => {
   app.use('/api', apiRouter)
 
   await apolloServer.start()
+
+  // must be called before `applyMiddleware`
+  app.use(graphqlUploadExpress())
 
   apolloServer.applyMiddleware({ app, path: '/api', cors: corsOptions })
 

@@ -1,4 +1,5 @@
 import { db } from '../db'
+import { uploadImage } from '../utils/file-upload'
 
 export const createUser = ({
   input,
@@ -89,7 +90,7 @@ export const getUserSettings = (id: string) => {
 }
 
 export const editUser = (args: any, userId: string) => {
-  const { displayName, email } = args.input
+  const { displayName, email, file } = args.input
 
   return db
     .table('users')
@@ -103,26 +104,56 @@ export const editUser = (args: any, userId: string) => {
       })
     })
     .then((user: any) => {
-      db.table('users')
-        .get(user.id)
-        .update(
-          {
-            ...user,
-          },
-          { returnChanges: 'always' }
-        )
-        .run()
-        .then((result: any) => {
-          // documents that were updated
-          if (result.replaced === 1) {
-            return result.changes[0].new_val
-          }
+      // console.log('backend file', file)
+      if (file) {
+        return uploadImage(file, 'users', user.id)
+          .then((photoUrl) => {
+            // update the user with the photoUrl
+            return db
+              .table('users')
+              .get(user.id)
+              .update(
+                {
+                  ...user,
+                  photoUrl,
+                },
+                { returnChanges: 'always' }
+              )
+              .run()
+              .then((result: any) => {
+                if (result.replaced === 1) {
+                  return result.changes[0].new_val
+                }
 
-          // the number of documents that would have been modified except the new value was the same as the old value
-          if (result.unchanged === 1) {
-            return result.changes[0].old_val
-          }
-        })
+                if (result.unchanged === 1) {
+                  return result.changes[0].old_val
+                }
+              })
+          })
+          .catch((err: any) => {
+            console.error(err)
+          })
+      } else {
+        return db
+          .table('users')
+          .get(user.id)
+          .update(
+            {
+              ...user,
+            },
+            { returnChanges: 'always' }
+          )
+          .run()
+          .then((result: any) => {
+            if (result.replaced === 1) {
+              return result.changes[0].new_val
+            }
+
+            if (result.unchanged === 1) {
+              return result.changes[0].old_val
+            }
+          })
+      }
     })
 }
 
@@ -137,6 +168,7 @@ export const changePassword = (args: any, userId: string) => {
       return Object.assign({}, result, {
         password: newPassword,
         modifiedAt: new Date(),
+        passwordUpdatedAt: new Date(),
       })
     })
     .then((user: any) => {
@@ -150,12 +182,10 @@ export const changePassword = (args: any, userId: string) => {
         )
         .run()
         .then((result: any) => {
-          // documents that were updated
           if (result.replaced === 1) {
             return result.changes[0].new_val
           }
 
-          // the number of documents that would have been modified except the new value was the same as the old value
           if (result.unchanged === 1) {
             return result.changes[0].old_val
           }

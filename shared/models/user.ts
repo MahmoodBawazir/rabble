@@ -51,6 +51,7 @@ export type GetCurrentUserSettingsType = UserInfoType & {
 export type EditUserType = {
   displayName?: string
   email?: string
+  file?: object
 }
 
 export type ChangePasswordType = {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik, Form, Field, FieldProps } from 'formik'
-import { string, object } from 'yup'
+import { string, object, mixed } from 'yup'
 
 import { PrimaryButton } from 'components/button'
 import { Input } from 'components/formElements'
@@ -15,6 +15,7 @@ interface Props {
 interface FormValues {
   displayName: string
   email: string
+  file?: object
 }
 
 const validationSchema = object({
@@ -22,16 +23,8 @@ const validationSchema = object({
   email: string()
     .email('Must contain a valid email address')
     .required('Enter an email address'),
+  file: mixed(),
 })
-
-const Avatar = ({ photoUrl }: any) => {
-  return (
-    <div>
-      <AvatarImage src={photoUrl || '/images/default_profile_photo.png'} />
-      <input type="file" name="photoUrl" />
-    </div>
-  )
-}
 
 const EditProfileForm: React.FC<Props> = ({ user }) => {
   const [editUser] = useEditUserMutation()
@@ -39,6 +32,23 @@ const EditProfileForm: React.FC<Props> = ({ user }) => {
   const initialValues: FormValues = {
     displayName: user.displayName,
     email: user.email,
+    file: undefined,
+  }
+
+  const onFileChange = (e: any, { setFieldValue }: { setFieldValue: any }) => {
+    let reader = new FileReader()
+    let file = e.target.files[0]
+
+    if (!file) return
+
+    reader.onloadend = () => {
+      setFieldValue('file', file)
+    }
+
+    if (file) {
+      // console.log('!!!!!', file)
+      reader.readAsDataURL(file)
+    }
   }
 
   const handleSubmit = async (
@@ -48,6 +58,7 @@ const EditProfileForm: React.FC<Props> = ({ user }) => {
     try {
       setSubmitting(true)
 
+      console.log('values', values)
       await editUser({
         variables: {
           input: values,
@@ -71,9 +82,18 @@ const EditProfileForm: React.FC<Props> = ({ user }) => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, setFieldValue }) => (
           <Form noValidate method="post">
-            <Avatar photoUrl={user.photoUrl} />
+            <div>
+              <AvatarImage
+                src={user.photoUrl || '/images/default_profile_photo.png'}
+              />
+              <input
+                type="file"
+                name="file"
+                onChange={(e) => onFileChange(e, { setFieldValue })}
+              />
+            </div>
 
             <Field name="displayName">
               {({

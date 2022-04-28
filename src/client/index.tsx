@@ -3,6 +3,7 @@ import { Router } from 'react-router'
 import { hydrate } from 'react-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { createUploadLink } from 'apollo-upload-client'
 
 import App from '../app'
 import { history } from './history'
@@ -26,6 +27,11 @@ const client = new ApolloClient({
   connectToDevTools: true,
   // this is ABSOLUTELY NEEDED for cookies to work
   credentials: 'include',
+  // @ts-ignore
+  link: createUploadLink({
+    uri: API_URL,
+    credentials: 'include',
+  }),
 })
 
 hydrate(

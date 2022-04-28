@@ -41,6 +41,7 @@ const User = gql`
     createdAt: Date
     modifiedAt: Date
     lastLoginAt: Date
+    bannedAt: Date
     timezone: Int
     password: String
     passwordUpdatedAt: Date
@@ -51,6 +52,7 @@ const User = gql`
   input EditUserInput {
     displayName: String
     email: Email
+    file: Upload
   }
 
   input ChangePasswordInput {

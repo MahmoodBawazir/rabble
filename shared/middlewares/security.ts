@@ -47,6 +47,7 @@ export default (
       helmet.contentSecurityPolicy({
         directives: {
           defaultSrc: ["'self'"],
+          imgSrc: ['https:', 'http:', "'self'", 'data:', 'blob:'],
           scriptSrc: [
             "'self'",
             (_req: any, res: any) => `'nonce-${res.locals.nonce}'`,
