@@ -21,19 +21,19 @@ localAuthRouter.post(
 
     try {
       user = await createUser({ input: { email, password: hashedPassword } })
+
+      req.login(user, function (err) {
+        if (err) {
+          return next(err)
+        }
+
+        // console.log('Successfully logged in!')
+
+        res.send(user)
+      })
     } catch (err) {
       console.error(err)
     }
-
-    req.login(user, function (err) {
-      if (err) {
-        return next(err)
-      }
-
-      res.send(user)
-    })
-
-    return user
   }
 )
 
