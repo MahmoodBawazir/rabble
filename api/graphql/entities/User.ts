@@ -61,14 +61,20 @@ const User = gql`
     newPassword2: String!
   }
 
+  input UpdateUserNotificationSettingsInput {
+    shouldSendNewsletter: Boolean
+  }
+
   extend type Query {
     currentUser: User
-    getCurrentUserSettings: User
   }
 
   extend type Mutation {
     editUser(input: EditUserInput!): User
     changePassword(input: ChangePasswordInput!): Boolean!
+    updateUserNotificationSettings(
+      input: UpdateUserNotificationSettingsInput!
+    ): User
   }
 `
 

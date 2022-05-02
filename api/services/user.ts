@@ -37,10 +37,14 @@ export const createUser = ({
       }
     )
     .run()
-    .then(
-      (result: { changes: { new_val: any }[] }) => result.changes[0].new_val
-    )
-    .then((user: any) => user)
+    .then((result: any) => {
+      const createdUser = result.changes[0].new_val || result.changes[0].old_val
+
+      return Promise.all([
+        createdUser,
+        createUserSettings(createdUser.id),
+      ]).then(([createdUser]) => createdUser)
+    })
 }
 
 export const getUserByEmail = (email: any) => {
@@ -65,7 +69,9 @@ export const createUserSettings = (id: string) => {
     .insert(
       {
         userId: id,
-        newsletter: true,
+        notifications: {
+          newsletter: true,
+        },
       },
       {
         returnChanges: 'always',
@@ -86,6 +92,24 @@ export const getUserSettings = (id: string) => {
       } else {
         return null
       }
+    })
+}
+
+export const updateUserSettings = (id: string, settings: object) => {
+  return db
+    .table('usersSettings')
+    .getAll(id, { index: 'userId' })
+    .update(
+      {
+        ...settings,
+      },
+      { returnChanges: 'always' }
+    )
+    .run()
+    .then((res: any) => {
+      const user = res.changes[0].new_val || res.changes[0].old_val
+
+      return user
     })
 }
 
