@@ -15,7 +15,7 @@ export type ProviderUserInfo = {
   displayName: string
   email: string
   rawId: string
-  photoUrl: string
+  profilePhoto: string
 }
 
 export interface User {
@@ -23,7 +23,7 @@ export interface User {
   displayName: string
   email: string
   emailVerified: boolean
-  photoUrl: string
+  profilePhoto: string
   providerUserInfo: ProviderUserInfo[]
   createdAt: Date
   modifiedAt: Date
@@ -37,7 +37,7 @@ export interface User {
 
 export type UserInfoType = Pick<
   User,
-  'id' | 'displayName' | 'email' | 'photoUrl' | 'createdAt'
+  'id' | 'displayName' | 'email' | 'profilePhoto' | 'createdAt'
 >
 
 export type LoginPayload = Pick<User, 'email' | 'password'>

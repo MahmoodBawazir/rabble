@@ -9,7 +9,7 @@ export default ensureAuthenticated(async (_: any, args: any, ctx: any) => {
   const { user } = ctx
   const { shouldSendNewsletter } = args.input
 
-  const { id, ...settings } = await getUserSettings(user.id)
+  const { id, userId, ...settings } = await getUserSettings(user.id)
 
   let newSettings = Object.assign({}, settings, {
     ...settings,

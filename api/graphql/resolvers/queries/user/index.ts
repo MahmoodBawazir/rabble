@@ -1,5 +1,5 @@
 import getCurrentUser from './getCurrentUser'
-import photoUrl from './photoUrl'
+import profilePhoto from './profilePhoto'
 import settings from './settings'
 
 const userQueries = {
@@ -8,7 +8,7 @@ const userQueries = {
     currentUser: getCurrentUser,
   },
   User: {
-    photoUrl,
+    profilePhoto,
     settings,
   },
 }

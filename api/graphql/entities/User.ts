@@ -12,7 +12,7 @@ const User = gql`
     displayName: String!
     email: Email!
     rawId: String!
-    photoUrl: String!
+    profilePhoto: String!
   }
 
   type UserProviderInfo {
@@ -20,7 +20,7 @@ const User = gql`
     displayName: String!
     email: Email!
     rawId: String!
-    photoUrl: String!
+    profilePhoto: String!
   }
 
   type UserNotificationsSettings {
@@ -36,7 +36,7 @@ const User = gql`
     displayName: String
     email: Email!
     emailVerified: Boolean
-    photoUrl: String
+    profilePhoto: String
     providerUserInfo: [UserProviderInfo!]
     createdAt: Date
     modifiedAt: Date

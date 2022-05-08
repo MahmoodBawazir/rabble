@@ -35,7 +35,7 @@ const AuthForm: React.FC<Props> = ({ type }) => {
         email: values.email,
         password: values.password,
       })
-
+      // console.log('res', res)
       window.location.pathname = '/'
     } catch (err: any) {
       console.error(err.message)

@@ -5,7 +5,7 @@ export default gql`
     id
     displayName
     email
-    photoUrl
+    profilePhoto
     createdAt
   }
 `

@@ -55,7 +55,7 @@ const useApi = () => {
       setStatus('error')
     }
 
-    return response
+    return response.result
   }
 
   return [status, call] as const

@@ -58,7 +58,7 @@ const EditProfileForm: React.FC<Props> = ({ user }) => {
     try {
       setSubmitting(true)
 
-      console.log('values', values)
+      // console.log('values', values)
       await editUser({
         variables: {
           input: values,
@@ -86,7 +86,7 @@ const EditProfileForm: React.FC<Props> = ({ user }) => {
           <Form noValidate method="post">
             <div>
               <AvatarImage
-                src={user.photoUrl || '/images/default_profile_photo.png'}
+                src={user.profilePhoto || '/images/default_profile_photo.png'}
               />
               <input
                 type="file"
