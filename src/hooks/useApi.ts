@@ -29,6 +29,7 @@ const callApi = async (
 
   const request = await fetch(
     endpoint.startsWith('/') ? apiBaseUrl + endpoint : endpoint,
+    // '/auth/email/signup',
     requestOptions
   )
 

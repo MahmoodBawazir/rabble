@@ -23,6 +23,6 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["typings", "shared", "src", "api"],
+  "include": ["typings", "shared", "src", "backend"],
   "exclude": ["node_modules"]
 }
