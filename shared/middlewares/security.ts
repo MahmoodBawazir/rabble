@@ -1,6 +1,7 @@
 import express from 'express'
 import helmet from 'helmet'
 import { v4 } from 'uuid'
+import { __PROD__ } from '../constants'
 
 export default (
   app: express.Application,
@@ -41,8 +42,7 @@ export default (
   }
 
   if (enableCSP) {
-    const httpConnectSrc =
-      process.env.NODE_ENV === 'production' ? 'https:' : 'http:'
+    const httpConnectSrc = __PROD__ ? 'https:' : 'http:'
     app.use(
       helmet.contentSecurityPolicy({
         directives: {

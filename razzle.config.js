@@ -35,7 +35,7 @@ module.exports = {
     webpackOptions.babelRule.include = webpackOptions.babelRule.include.concat([
       /typings/,
       /shared/,
-      /api/,
+      /backend/,
     ])
 
     return webpackOptions

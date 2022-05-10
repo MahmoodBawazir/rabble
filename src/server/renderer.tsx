@@ -10,10 +10,13 @@ import { SchemaLink } from '@apollo/client/link/schema'
 
 import App from '../app'
 import { getHeader, getFooter } from './template'
-import schema from '../../api/graphql/schema'
+import schema from '../../backend/graphql/schema'
 
 const debug = require('debug')
 const log = debug('server:renderer')
+
+const FIVE_MINUTES = 300
+const ONE_HOUR = 3600
 
 const renderer = async (req: express.Request, res: express.Response) => {
   log(`server-side render ${req.url}`)
@@ -67,6 +70,15 @@ const renderer = async (req: express.Request, res: express.Response) => {
 
       const data = client.extract()
       const { helmet } = helmetContext
+
+      // if (!req.user) {
+      //   res.setHeader(
+      //     'Cache-Control',
+      //     `s-maxage=${ONE_HOUR}, stale-while-revalidate=${FIVE_MINUTES}, must-revalidate`
+      //   )
+      // } else {
+      //   res.setHeader('Cache-Control', 's-maxage=0, private')
+      // }
 
       res.write(
         getHeader({

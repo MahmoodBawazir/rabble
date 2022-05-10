@@ -1,6 +1,10 @@
+const path = require('path')
+
 module.exports = {
   webpack: (config, options, webpack) => {
-    config.entry.main = ['./api/index.ts']
+    config.entry.main = ['./backend/index.ts']
+
+    config.output.path = path.join(process.cwd(), 'build-api')
 
     config.resolve = {
       extensions: ['.ts'],

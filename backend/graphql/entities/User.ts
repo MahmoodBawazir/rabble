@@ -1,6 +1,17 @@
 import { gql } from '@apollo/client'
 
 const User = gql`
+  enum CacheControlScope {
+    PUBLIC
+    PRIVATE
+  }
+
+  directive @cacheControl(
+    maxAge: Int
+    scope: CacheControlScope
+    inheritMaxAge: Boolean
+  ) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
+
   enum Role {
     ADMIN
     INSTRUCTOR
@@ -15,7 +26,7 @@ const User = gql`
     profilePhoto: String!
   }
 
-  type UserProviderInfo {
+  type UserProviderInfo @cacheControl(maxAge: 600) {
     providerId: String!
     displayName: String!
     email: Email!
@@ -23,15 +34,15 @@ const User = gql`
     profilePhoto: String!
   }
 
-  type UserNotificationsSettings {
+  type UserNotificationsSettings @cacheControl(maxAge: 600) {
     newsletter: Boolean
   }
 
-  type UserSettings {
+  type UserSettings @cacheControl(maxAge: 600) {
     notifications: UserNotificationsSettings
   }
 
-  type User {
+  type User @cacheControl(maxAge: 600) {
     id: ID!
     displayName: String
     email: Email!
@@ -66,7 +77,7 @@ const User = gql`
   }
 
   extend type Query {
-    currentUser: User
+    currentUser: User @cacheControl(maxAge: 1200, scope: PRIVATE)
   }
 
   extend type Mutation {

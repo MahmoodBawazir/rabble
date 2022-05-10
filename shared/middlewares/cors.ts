@@ -1,7 +1,8 @@
 import cors from 'cors'
+import { __PROD__ } from '../constants'
 
 export const corsOptions = {
-  origin: [/localhost/],
+  origin: __PROD__ ? ['https://rabbleacademy.xyz'] : [/localhost/],
   credentials: true,
 }
 
